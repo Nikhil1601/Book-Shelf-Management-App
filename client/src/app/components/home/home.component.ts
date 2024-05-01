@@ -64,7 +64,7 @@ export class HomeComponent {
       return;
     }
 
-    this.loading=true
+    
     const bookval = this.createform.value
     const book={
       name: bookval.name,
@@ -77,8 +77,9 @@ export class HomeComponent {
     
     this.bookservice.createBook(book).subscribe((res)=>{
       console.log(res);
-      this.loading = false;
+      this.loading = true;
       setTimeout(()=>{
+        this.loading = false
         window.location.reload()
       },5000)
       
