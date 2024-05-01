@@ -113,9 +113,12 @@ export class BookCardComponent {
     this.booksService.updateBook(book,this.bookid).subscribe((res)=>{
       console.log(res)
       this.toastr.success('Successfully updated book','Success')
+      this.loadBooks()
+    },(error)=>{
+      this.toastr.error('Failed to update the book.', 'Error')
     })
     this.closeModal()
-    this.loadBooks()
+    
   }
   delete(){
     console.log(this.bookid);
