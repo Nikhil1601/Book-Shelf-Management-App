@@ -1,0 +1,11 @@
+.card-text{
+    display: flex;
+    justify-content: space-between;
+}
+.card{
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+h2{
+    color: aliceblue;
+}

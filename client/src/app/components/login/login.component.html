@@ -1,0 +1,32 @@
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<body>
+    <div class="wrapper">
+        <form [formGroup]="formlogin" (submit)="login()">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="email" formControlName="email" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                <i class='bx bxs-user'></i>
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors['email']">Invalid email format</div>
+                  </div>
+            </div>
+            <div class="input-box">
+                <input type="password" formControlName="password" placeholder="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                <i class='bx bxs-lock-alt'></i>
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Password is required</div>
+                    <div *ngIf="f['password'].errors['minlength']">Password must be at least 4 characters</div>
+                    <div *ngIf="f['password'].errors['maxlength']">Password must not exceed 40 characters</div>
+                  </div>
+            </div>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <button type="submit" class="btn">Login</button>
+            <div class="register-link">
+                <p>Dont't have an account? 
+                        <span [routerLink] = "['/signup']">Register</span>
+                    </p>
+            </div>
+        </form>
+    </div>
+</body>

@@ -1,0 +1,16 @@
+.card-conatiner{
+    margin: auto 80px;
+}
+
+#logoutModalLabel{
+    color: red;
+    font-size: large;
+}
+
+#logoutModalBody{
+    color: coral;
+    font-size: medium;
+}
+.navbar-brand{
+    cursor: pointer;
+}

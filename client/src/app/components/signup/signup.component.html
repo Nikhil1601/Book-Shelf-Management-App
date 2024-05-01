@@ -1,0 +1,35 @@
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<body>
+    <div class="wrapper">
+        <form [formGroup]="form" (submit)="signup()">
+          <h1>Sign Up</h1>
+          <div class="input-box">
+            <input type="text" formControlName="name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" />
+            <i class="bx bxs-user"></i>
+            <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+              <div *ngIf="f['name'].errors['required']">Full name is required</div>
+            </div>
+          </div>
+          <div class="input-box">
+            <input type="email" formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+            <i class="bx bxs-envelope"></i>
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Email is required</div>
+              <div *ngIf="f['email'].errors['email']">Invalid email format</div>
+            </div>
+          </div>
+          <div class="input-box">
+            <input type="password" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+            <i class="bx bxs-lock-alt"></i>
+            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+              <div *ngIf="f['password'].errors['required']">Password is required</div>
+              <div *ngIf="f['password'].errors['minlength']">Password must be at least 4 characters</div>
+              <div *ngIf="f['password'].errors['maxlength']">Password must not exceed 40 characters</div>
+            </div>
+          </div>
+          <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+          <button type="submit" class="btn">Sign Up</button>
+        </form>
+      </div>
+</body>
+

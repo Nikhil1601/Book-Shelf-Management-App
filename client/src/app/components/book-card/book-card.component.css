@@ -1,0 +1,75 @@
+.card-conatiner{
+    display: flex;
+}
+
+.card{
+  flex-basis: 23.89%;
+}
+.dropdown{
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+.dropdown .dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  top: 100%;
+  transition: visibility 0s, opacity 0.5s linear;
+  position: absolute;
+  background-color: #000000;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.dropdown .dropdown-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dropdown .dropdown-content ul li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.dropdown .dropdown-content ul li :hover{
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdown .dropdown-content.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+.card {
+  background-color:rgba(230, 229, 229, 0.2); 
+  border-radius: 10px;
+  color: #b9b7b7;
+}
+
+
+.pagination-controls {
+  color: rgb(255, 255, 255); 
+}
+.pagination{
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+
+
+.card-tile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-tile .card-title {
+  flex-grow: 1;
+  text-align: start;
+}
+.card-tile .card-text{
+  flex-grow: 1;
+  text-align: start;
+}

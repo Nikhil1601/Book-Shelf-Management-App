@@ -1,0 +1,126 @@
+
+@if(books.length>0){
+   <div class="card-container row">
+    <div class="card mx-2 my-2" *ngFor="let book of books | paginate: { itemsPerPage: 12, currentPage: p }; let i = index">
+      <img src={{book.image}} class="card-img-top" alt="API image">
+      <div class="card-body">
+        <div class="card-tile">
+          <span class="card-title text-start">Title:</span>
+          <span class="card-text text-end">{{book.name}}</span>
+        </div>
+        <div class="card-tile">
+          <span class="card-title text-start">Author:</span>
+          <span class="card-text text-end">{{book.author}}</span>
+        </div>
+        <div class="card-tile">
+          <span class="card-title text-start">Pages:</span>
+          <span class="card-text text-end">{{book.pages}}</span>
+        </div>
+        <div class="card-tile">
+          <span class="card-title text-start">Price:</span>
+          <span class="card-text text-end">{{book.price}}</span>
+        </div>
+        <div class="dropdown" (mouseenter)="toggleDropdown(i)" (mouseleave)="toggleDropdown(i)">
+          <svg class="main-dropdown" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+          </svg>
+          <div class="dropdown-content" [class.show]="dropdownStates[i]">
+            <ul>
+              <li data-bs-toggle="modal" data-bs-target="#updateBookModal" (click)="saveid(book._id)">Update</li>
+              <li data-bs-toggle="modal" data-bs-target="#exampleModalCenter" (click)="saveid(book._id)"> Delete</li>
+              
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination">
+    <pagination-controls class="pagination-controls" (pageChange)="p = $event"  [autoHide]= "true"></pagination-controls>
+  </div>
+}
+@else{
+  <div class="alert alert-secondary mt-5 fs-4" role="alert">
+    You don't have any book. Please create first!
+  </div>
+}
+
+
+
+
+  <!-- Modals for delete  -->
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete book?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger"  data-bs-dismiss="modal" (click)="delete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- add book modal  -->
+
+<div class="modal fade" id="updateBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="addBookModalLabel">Add New Book</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Book details form -->
+              <form >
+                  <div class="mb-3">
+                      <label for="bookName" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="bookName" [(ngModel)]="bookName" name="bookName" placeholder="Enter book name">
+                  </div>
+                  <div class="mb-3">
+                      <label for="bookAuthor" class="form-label">Author</label>
+                      <input type="text" class="form-control" id="bookAuthor" [(ngModel)]="bookAuthor" name="bookAuthor" placeholder="Enter author name">
+                  </div>
+                  <div class="mb-3">
+                      <label for="bookImage" class="form-label">Image URL</label>
+                      <input type="url" class="form-control" id="bookImage" [(ngModel)]="bookImage" name="bookImage" placeholder="Enter image URL">
+                  </div>
+                  <div class="mb-3">
+                      <label for="bookPages" class="form-label">Pages</label>
+                      <input type="number" class="form-control" id="bookPages" [(ngModel)]="bookPages" name="bookPages" placeholder="Enter number of pages">
+                  </div>
+                  <div class="mb-3">
+                      <label for="bookPrice" class="form-label">Price</label>
+                      <input type="number" class="form-control" id="bookPrice" [(ngModel)]="bookPrice" name="bookPrice" placeholder="Enter price">
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="update()">Upadte</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+  
