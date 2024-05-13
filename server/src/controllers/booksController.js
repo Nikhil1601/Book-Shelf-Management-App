@@ -1,11 +1,47 @@
 const Book = require('../models/books');
 
+
+
 async function getAllBooks(req, res) {
+    const pageSize = 12;
+    const pageString = req.query.page || '1'; 
+  
+    let page;
     try {
-        const userBooks = await Book.find({ uid: req.user._id });
+      page = parseInt(pageString);
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid page number provided'
+      });
+    }
+  
+    const skip = (page - 1) * pageSize;
+  
+    try {
+      const userBooks = await Book.find({ uid: req.user._id })
+        .skip(skip)
+        .limit(pageSize)
+        .sort({ _id: -1 });
+  
+      res.status(200).json({
+        success: true,
+        data: userBooks
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        error: err.message
+      });
+    }
+  }
+   
+  async function getnumberOfBooks(req, res) {
+    try {
+        const count = await Book.countDocuments({ uid: req.user._id });
         res.status(200).json({
             success: true,
-            data: userBooks
+            count: count
         });
     } catch (err) {
         res.status(400).json({
@@ -94,4 +130,7 @@ async function deleteBook(req, res) {
     }
 }
 
-module.exports = { getAllBooks, getBookById, createBook, updateBook, deleteBook };
+
+
+
+module.exports = { getAllBooks, getBookById, createBook, updateBook, deleteBook, getnumberOfBooks };

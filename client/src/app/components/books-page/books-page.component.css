@@ -1,5 +1,10 @@
 .contaner{
     max-width: 1440px;
     margin: 40px auto;
-    
+    margin-top: 50px;
+}
+.d-flex{
+    display: block;
+    margin-right: 13rem;
+    margin-top: 3rem;
 }

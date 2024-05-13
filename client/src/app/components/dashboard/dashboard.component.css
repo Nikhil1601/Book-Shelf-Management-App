@@ -3,9 +3,25 @@
     justify-content: space-between;
 }
 .card{
-    margin-left: 20vw;
-    margin-right: 20vw;
+    margin-left: 5vw;
+    margin-top: 20vh;
+    margin-bottom: 10vh;
+    width: 500px;
+    height: 200px;
 }
 h2{
     color: aliceblue;
+    font-size: xx-large;
+}
+.dash-main{
+    display: flex;
+}
+.btn{
+    margin:0 20%;
+    margin-top: 5%;
+}
+.col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

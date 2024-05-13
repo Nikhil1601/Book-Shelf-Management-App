@@ -3,13 +3,13 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
-
+import { environment } from '../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
-    private baseUrl = 'http://localhost:3000';
+    private baseUrl = environment.BASE_URL1;
     private token: string = "";
     username:string = ''
   

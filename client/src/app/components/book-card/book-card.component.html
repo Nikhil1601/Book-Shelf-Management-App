@@ -1,7 +1,7 @@
 
 @if(books.length>0){
    <div class="card-container row">
-    <div class="card mx-2 my-2" *ngFor="let book of books | paginate: { itemsPerPage: 12, currentPage: p }; let i = index">
+    <div class="card mx-2 my-2" *ngFor="let book of books  let i = index">
       <img src={{book.image}} class="card-img-top" alt="API image">
       <div class="card-body">
         <div class="card-tile">
@@ -37,7 +37,13 @@
     </div>
   </div>
   <div class="pagination">
-    <pagination-controls class="pagination-controls" (pageChange)="p = $event"  [autoHide]= "true"></pagination-controls>
+    <div>
+      <div class="btn-group" id="radioBtn">
+        <a class="btn btn-primary btn-sm notActive" id="prevbtn" (click)="onPrevious()"> Previous </a>
+        <a class="btn btn-primary btn-sm active">{{pgnumber}}</a>
+        <a class="btn btn-primary btn-sm notActive" id="nextbtn" (click)="onNext()">Next </a>
+      </div>
+    </div>
   </div>
 }
 @else{
@@ -125,7 +131,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success" (click)="update()">Create</button>
+            <button type="submit" class="btn btn-success" id="submitbtn" (click)="update()">Update</button>
         </div>
     </div>
 </div>

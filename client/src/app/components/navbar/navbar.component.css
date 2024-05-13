@@ -1,0 +1,23 @@
+
+#logoutModalLabel{
+    color: red;
+    font-size: large;
+}
+
+#logoutModalBody{
+    color: coral;
+    font-size: medium;
+}
+.navbar-brand{
+    cursor: pointer;
+}
+.dropdown-item{
+    color: aliceblue;
+    font-size: large;
+}
+.navbar-brand{
+    margin-bottom: 0;
+}
+.nav-item :hover{
+    color: black !important;
+}

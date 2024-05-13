@@ -8,5 +8,5 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(withInterceptors([authInterceptor])), provideAnimationsAsync(),provideToastr({timeOut: 5000})]
+  providers: [provideRouter(routes), provideHttpClient(withInterceptors([authInterceptor])), provideAnimationsAsync(),provideToastr({timeOut: 1700})]
 };
