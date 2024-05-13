@@ -51,33 +51,56 @@ export class BookCardComponent {
     this.loadBooks(this.pgnumber)
     this.totalbooks = localStorage.getItem('noOfBooks')!
   }
+
+  ngAfterViewInit() {
+    const prevbtn = document.getElementById('prevbtn');
+    prevbtn?.setAttribute('hidden', '');
+  }
+  
   get f(): { [key: string]: AbstractControl } {
     return this.upadteform.controls;
   }
 
-  onNext(){
-    if(this.pgnumber == Math.ceil(parseInt(this.totalbooks)/this.pageSize)){
-      const nextbtn = document.getElementById('nextbtn')
-      nextbtn?.setAttribute('disabled','')
-      this.toastr.warning("You do not have any more books",'Warning')
+  onNext() {
+    const totalPages = Math.ceil(parseInt(this.totalbooks) / this.pageSize);
+    this.pgnumber++;
+    this.loadBooks(this.pgnumber);
+    
+    const nextbtn = document.getElementById('nextbtn');
+    const prevbtn = document.getElementById('prevbtn');
+    
+    if (this.pgnumber == totalPages) {
+      nextbtn?.setAttribute('hidden', '');
+      
     }
-    else{
-    this.pgnumber ++
-    this.loadBooks(this.pgnumber)}
-  }
-  onPrevious(){
-    if(this.pgnumber == 1){
-      const prevbtn = document.getElementById('prevbtn')
-      prevbtn?.setAttribute('disabled','')
-      this.toastr.warning("You can't go back",'Warning')
+    
+    if (this.pgnumber > 1) {
+      prevbtn?.removeAttribute('hidden');
     }
-    else{
-    this.pgnumber --
-    this.loadBooks(this.pgnumber)}
   }
 
+  onPrevious() {
+    const totalPages = Math.ceil(parseInt(this.totalbooks) / this.pageSize);
+    this.pgnumber--;
+    this.loadBooks(this.pgnumber);
+    
+    const prevbtn = document.getElementById('prevbtn');
+    const nextbtn = document.getElementById('nextbtn');
+    
+    if (this.pgnumber == 1) {
+      prevbtn?.setAttribute('hidden', '');
+      
+    }
+    
+    if (this.pgnumber < totalPages) {
+      nextbtn?.removeAttribute('hidden');
+    }
+  }
+  
+  
+
   loadBooks(pgnumber:number){
-    this.booksService.getAllBooks(pgnumber, this.pageSize).subscribe((res) => {
+    this.booksService.getAllBooks(pgnumber, this.pageSize).subscribe({next:(res:any) => {
       console.log(res);
       this.books = res.data;
       this.totalItems = res.total;
@@ -88,12 +111,13 @@ export class BookCardComponent {
       });
       console.log(this.bookidmap);
       
-    },(error) => {
-        if (error.status === 400) {
-          this.toastr.warning('You do not have any more books',"No more books are present")
-        }}
-  )
-    
+    },
+  error:(err:any)=>{
+    this.toastr.error('Failed to load books','An error occured')
+    console.log(err);
+  }
+  })
+  
   }
  
   
@@ -102,7 +126,7 @@ export class BookCardComponent {
   saveid(id:string){
     this.bookid = id
     console.log(this.bookid)
-    this.booksService.getBookById(this.bookid).subscribe((res) => {
+    this.booksService.getBookById(this.bookid).subscribe({next:(res:any) => {
       const book = res.data;
 
       this.upadteform.setValue({
@@ -112,7 +136,7 @@ export class BookCardComponent {
         pages: book.pages,
         price:book.price
       })
-    })
+    }})
   }
 
   
@@ -135,27 +159,30 @@ export class BookCardComponent {
       price: bookval.price
     }
     console.log(book);
-    this.booksService.updateBook(book,this.bookid).subscribe((res)=>{
+    this.booksService.updateBook(book,this.bookid).subscribe({next:(res:any)=>{
       console.log(res)
       this.toastr.success('Successfully updated book','Success')
       this.bookid = ''
       this.loadBooks(this.pgnumber)
-    },(error)=>{
+    },
+    error:()=>{
       this.toastr.error('Failed to update the book.', 'Error')
-    })
+    }
+  })
     this.closeModal()
     
   }
   delete(){
     console.log(this.bookid);
-    this.booksService.deleteBook(this.bookid).subscribe((res)=>{
+    this.booksService.deleteBook(this.bookid).subscribe({next:(res:any)=>{
       console.log(res);
       this.toastr.success('Successfully deleted','Success')
-    },(error)=>{
+    },
+    error:(error:any)=>{
       this.toastr.error('Not able to delete','Error while deleting')
       console.log(error);
       
-    })
+    }})
     this.bookid = ''
     this.loadBooks(this.pgnumber)
     
