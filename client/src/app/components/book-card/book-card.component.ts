@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -8,6 +8,7 @@ import {
 import {MatButtonModule} from '@angular/material/button';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -37,6 +38,7 @@ export class BookCardComponent {
   pageSize = 12
   totalbooks:string =''
 
+
   constructor(private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder){
     this.upadteform = fb.group({
       name:['', [Validators.required]],
@@ -48,6 +50,7 @@ export class BookCardComponent {
   }
 
   ngOnInit(){
+    
     this.loadBooks(this.pgnumber)
     this.totalbooks = localStorage.getItem('noOfBooks')!
   }
@@ -55,14 +58,33 @@ export class BookCardComponent {
   ngAfterViewInit() {
     const prevbtn = document.getElementById('prevbtn');
     prevbtn?.setAttribute('hidden', '');
-  }
+    this.loadpagination( )
+    }
+loadpagination(){
   
+    const noBooks = Number(this.numberofbooks)
+    console.log(noBooks);
+    const pagination = document.getElementById('pagination')
+      if(noBooks<=12){
+        
+        pagination?.setAttribute('hidden','')
+      }
+      else{
+        pagination?.removeAttribute('hidden')
+        if(this.pgnumber==1){
+          const nextbtn = document.getElementById('nextbtn');
+          const prevbtn = document.getElementById('prevbtn');
+          nextbtn?.removeAttribute('hidden')
+          prevbtn?.setAttribute('hidden','')
+        }
+      }
+}
   get f(): { [key: string]: AbstractControl } {
     return this.upadteform.controls;
   }
 
   onNext() {
-    const totalPages = Math.ceil(parseInt(this.totalbooks) / this.pageSize);
+    const totalPages = Math.ceil(parseInt(this.numberofbooks) / this.pageSize);
     this.pgnumber++;
     this.loadBooks(this.pgnumber);
     
@@ -80,7 +102,7 @@ export class BookCardComponent {
   }
 
   onPrevious() {
-    const totalPages = Math.ceil(parseInt(this.totalbooks) / this.pageSize);
+    const totalPages = Math.ceil(parseInt(this.numberofbooks) / this.pageSize);
     this.pgnumber--;
     this.loadBooks(this.pgnumber);
     
@@ -100,16 +122,26 @@ export class BookCardComponent {
   
 
   loadBooks(pgnumber:number){
+    this.booksService.getNumberOfBooks().subscribe({next:(res:any)=>{
+      this.numberofbooks = res.count
+      
+      this.loadpagination()
+    }
+    })
     this.booksService.getAllBooks(pgnumber, this.pageSize).subscribe({next:(res:any) => {
       console.log(res);
       this.books = res.data;
-      this.totalItems = res.total;
+      this.totalItems = this.books.length;
+      console.log(this.totalItems);
+      
+      
       console.log(this.books);
       this.books.forEach((book: any, index: number) => {
-        this.bookidmap[index] = book._id;
-         
+        this.bookidmap[index] = book._id; 
       });
-      console.log(this.bookidmap);
+      
+      console.log(this.bookidmap); 
+      
       
     },
   error:(err:any)=>{
@@ -139,9 +171,6 @@ export class BookCardComponent {
     }})
   }
 
-  
- 
-  
   
   update(){
     this.submitted = true
@@ -176,15 +205,25 @@ export class BookCardComponent {
     console.log(this.bookid);
     this.booksService.deleteBook(this.bookid).subscribe({next:(res:any)=>{
       console.log(res);
+      this.totalItems--;
+      console.log(this.totalItems);
+      
       this.toastr.success('Successfully deleted','Success')
+      this.bookid = ''
+      if(this.totalItems==0){
+        this.pgnumber--
+      }
+      this.loadBooks(this.pgnumber)
     },
     error:(error:any)=>{
       this.toastr.error('Not able to delete','Error while deleting')
       console.log(error);
       
     }})
-    this.bookid = ''
-    this.loadBooks(this.pgnumber)
+    
+    
+    
+
     
   }
   toggleDropdown(index: number): void {
