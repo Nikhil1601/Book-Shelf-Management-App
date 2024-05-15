@@ -22,8 +22,9 @@ const bookSchema = new mongoose.Schema({
         required:true,
     },
     uid:{
-        type:String,
-        required:true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true,
     }
 
 })

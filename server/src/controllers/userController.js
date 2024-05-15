@@ -1,9 +1,10 @@
 const User = require("../models/user");
+const Book = require("../models/books")
 const { setUser } = require("../service/auth");
 const bcrypt = require('bcrypt')
 
 async function handleSignup(req, res, next) {
-    const { name, email, password } = req.body;
+    const { name, email, password,role } = req.body;
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -13,7 +14,8 @@ async function handleSignup(req, res, next) {
         await User.create({
             name,
             email,
-            password: hashedPassword, 
+            password: hashedPassword,
+            role,
         });
         return res.json("Successfully signed up");
     } catch (error) {
@@ -37,9 +39,9 @@ async function handleLogin(req, res) {
         }
       
         const token = setUser(user);
-        
+        role = user.role
         console.log(token);
-        res.json({ token }); // Sending token in JSON format
+        res.json({ token ,role}); // Sending token in JSON format
     } catch (error) {
         console.error("Error during login:", error);
         return res.status(500).json({ error: "Error during login" });
@@ -62,4 +64,43 @@ async function getUserById(req, res) {
 }
 
 
-module.exports = { handleSignup, handleLogin, getUserById };
+async function getUsers(req, res) {
+    try {
+        if (req.user.role === "admin") {
+            const usersWithBookCount = await User.aggregate([
+                {
+                    $lookup: {
+                        from: "books",
+                        localField: "_id",
+                        foreignField: "uid",
+                        as: "books"
+                    }
+                },
+                {
+                    $addFields: {
+                        bookCount: { $size: "$books" }
+                    }
+                },
+                {
+                    $project: {
+                        password: 0,
+                        books: 0 
+                    }
+                }
+            ]);
+
+            res.status(200).json({
+                success: true,
+                data: usersWithBookCount
+            });
+        } else {
+            return res.status(403).json({ error: "Unauthorized access" });
+        }
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return res.status(500).json({ error: "Error fetching users" });
+    }
+}
+
+
+module.exports = { handleSignup, handleLogin, getUserById,getUsers };

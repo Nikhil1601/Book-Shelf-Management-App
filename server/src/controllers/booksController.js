@@ -1,40 +1,55 @@
 const Book = require('../models/books');
-
-
+const mongoose  = require('mongoose')
 
 async function getAllBooks(req, res) {
     const pageSize = 12;
     const pageString = req.query.page || '1'; 
-  
     let page;
     try {
-      page = parseInt(pageString);
+        page = parseInt(pageString);
     } catch (error) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid page number provided'
-      });
+        return res.status(400).json({
+            success: false,
+            error: 'Invalid page number provided'
+        });
     }
-  
     const skip = (page - 1) * pageSize;
-  
+
     try {
-      const userBooks = await Book.find({ uid: req.user._id })
-        .skip(skip)
-        .limit(pageSize)
-        .sort({ _id: -1 });
-  
-      res.status(200).json({
-        success: true,
-        data: userBooks
-      });
+        let query = {};
+        if (req.user.role === "admin") {
+            const userId = req.params.userId;
+            if (userId && mongoose.isValidObjectId(userId)) {
+                query = { uid: userId };
+            } else if (userId) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Invalid user ID provided'
+                });
+            } else {
+                query = {};
+            }
+        } else {
+            query = { uid: req.user._id };
+        }
+      
+        const userBooks = await Book.find(query)
+            .skip(skip)
+            .limit(pageSize)
+            .sort({ _id: -1 });
+
+        res.status(200).json({
+            success: true,
+            data: userBooks
+        });
     } catch (err) {
-      res.status(400).json({
-        success: false,
-        error: err.message
-      });
+        res.status(400).json({
+            success: false,
+            error: err.message
+        });
     }
-  }
+}
+
    
   async function getnumberOfBooks(req, res) {
     try {

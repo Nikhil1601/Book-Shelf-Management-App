@@ -1,10 +1,10 @@
 
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors'); // Import the cors middleware
 const userRoutes = require('./routes/userRoutes');
 const bookRoutes = require('./routes/bookRoutes');
+
 
 const app = express();
 
@@ -36,6 +36,8 @@ app.use('/user', userRoutes);
 // Routes for books
 
 app.use('/books', bookRoutes);
+
+
 
 // Start the server
 const PORT = 3000;
