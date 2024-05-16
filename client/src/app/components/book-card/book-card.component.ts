@@ -63,7 +63,7 @@ export class BookCardComponent {
 loadpagination(){
   
     const noBooks = Number(this.numberofbooks)
-    console.log(noBooks);
+    console.log("nosnd",noBooks);
     const pagination = document.getElementById('pagination')
       if(noBooks<=12){
         
