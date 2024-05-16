@@ -105,7 +105,12 @@ async function createBook(req, res) {
 
 async function updateBook(req, res) {
     try {
-        const book = await Book.findOneAndUpdate({ _id: req.params.id, uid: req.user._id }, req.body, { new: true });
+        let query = { _id: req.params.id, uid: req.user._id };
+        if (req.user.role === 'admin') {
+            query = { _id: req.params.id };
+        }
+
+        const book = await Book.findOneAndUpdate(query, req.body, { new: true });
         if (!book) {
             return res.status(404).json({
                 success: false,
@@ -126,13 +131,18 @@ async function updateBook(req, res) {
 
 async function deleteBook(req, res) {
     try {
-        const book = await Book.findOneAndDelete({ _id: req.params.id, uid: req.user._id });
+        let query = { _id: req.params.id, uid: req.user._id };
+        if (req.user.role === 'admin') {
+            query = { _id: req.params.id }; 
+        }
+
+        const book = await Book.findOneAndDelete(query);
         if (!book) {
             return res.status(404).json({
                 success: false,
                 error: "Book not found"
             });
-        }console.log('deleted');
+        }
         res.status(200).json({
             success: true,
             message: "Deleted successfully"
