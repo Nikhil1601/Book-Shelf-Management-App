@@ -87,42 +87,42 @@
       <div class="modal-content bg-dark text-white">
           <div class="modal-header">
               <h5 class="modal-title" id="addBookModalLabel">Add New Book</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"></button>
+              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"  aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <!-- Book details form -->
               <form [formGroup]="upadteform" (submit)="update()">
                 <div class="mb-3">
                     <label for="bookName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="bookName" formControlName="name" placeholder="Enter book name" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }">
+                    <input type="text" class="form-control  bg-dark text-white" id="bookName" formControlName="name" placeholder="Enter book name" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }">
                     <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
                       <div *ngIf="f['name'].errors['required']">Book Name is required</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="bookAuthor" class="form-label">Author</label>
-                    <input type="text" class="form-control" id="bookAuthor" formControlName="author" placeholder="Enter author name" [ngClass]="{ 'is-invalid': submitted && f['author'].errors }">
+                    <input type="text" class="form-control  bg-dark text-white" id="bookAuthor" formControlName="author" placeholder="Enter author name" [ngClass]="{ 'is-invalid': submitted && f['author'].errors }">
                     <div *ngIf="submitted && f['author'].errors" class="invalid-feedback">
                       <div *ngIf="f['author'].errors['required']">Author name is required</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="bookImage" class="form-label">Image URL</label>
-                    <input type="url" class="form-control" id="bookImage" formControlName="image" placeholder="Enter image URL" [ngClass]="{ 'is-invalid': submitted && f['image'].errors }">
+                    <input type="url" class="form-control  bg-dark text-white" id="bookImage" formControlName="image" placeholder="Enter image URL" [ngClass]="{ 'is-invalid': submitted && f['image'].errors }">
                     <div *ngIf="submitted && f['image'].errors" class="invalid-feedback">
                       <div *ngIf="f['image'].errors['required']">Image is required</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="bookPages" class="form-label">Pages</label>
-                    <input type="number" class="form-control" id="bookPages" formControlName="pages" placeholder="Enter number of pages" [ngClass]="{ 'is-invalid': submitted && f['pages'].errors }">
+                    <input type="number" class="form-control  bg-dark text-white" id="bookPages" formControlName="pages" placeholder="Enter number of pages" [ngClass]="{ 'is-invalid': submitted && f['pages'].errors }">
                     <div *ngIf="submitted && f['pages'].errors" class="invalid-feedback">
                       <div *ngIf="f['pages'].errors['required']">Number of Pages is required</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="bookPrice" class="form-label">Price</label>
-                    <input type="number" class="form-control" id="bookPrice" formControlName="price" placeholder="Enter price" [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
+                    <input type="number" class="form-control  bg-dark text-white" id="bookPrice" formControlName="price" placeholder="Enter price" [ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
                     <div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
                       <div *ngIf="f['price'].errors['required']">Price is required</div>
                     </div>
