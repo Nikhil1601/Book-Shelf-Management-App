@@ -32,7 +32,9 @@ async function handleLogin(req, res) {
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
-       
+       if(user.active === false){
+        return res.status(403).json({error:"Account disabled"});
+       }
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ error: "Invalid password" });
@@ -84,11 +86,10 @@ async function getUsers(req, res) {
                 {
                     $project: {
                         password: 0,
-                        books: 0 
+                        books: 0
                     }
                 }
             ]);
-
             res.status(200).json({
                 success: true,
                 data: usersWithBookCount
@@ -103,4 +104,27 @@ async function getUsers(req, res) {
 }
 
 
-module.exports = { handleSignup, handleLogin, getUserById,getUsers };
+async function updateUserStatus(req,res){
+    const {userId,active}=req.body;
+    try{
+        if(req.user.role === "admin"){
+            const user = await User.findById(userId);
+            if(!user){
+                return res.status(404).json({ error: "User not found" });
+            }
+            user.active = active
+            await user.save();
+            return res.json({message:"User updated sucessfully"});
+        }else{
+            return res.status(403).json({message:"Unauthorized access"});
+        }
+        
+    }catch(err){
+        console.error("Error updating status of the user",err);
+        return res.status(500).json({message:"Error updating user"});
+    }
+
+  }
+
+
+module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus };
