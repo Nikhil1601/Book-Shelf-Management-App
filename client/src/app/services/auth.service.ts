@@ -12,6 +12,7 @@ export class AuthService {
     private baseUrl = environment.BASE_URL1;
     private token: string = "";
     username:string = ''
+    private role:string = ''
   
     constructor(private http: HttpClient, private router: Router) { }
   
@@ -20,6 +21,8 @@ export class AuthService {
         tap(response => {
           if (response && response.token) {
             this.token = response.token;
+            this.role = response.role;
+            sessionStorage.setItem('role',this.role);
             sessionStorage.setItem('token', this.token);
           }
         })

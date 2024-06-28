@@ -15,6 +15,7 @@ import { BooksService } from '../../services/books.service';
 export class DashboardComponent {
   user:any
   noOfBooks:any
+  role:string=""
   constructor(private authService:AuthService,private router:Router,private bookservice :BooksService){}
   ngOnInit(){
     this.userdetails()
@@ -23,12 +24,15 @@ export class DashboardComponent {
   userdetails(){
     this.authService.getName().subscribe((res)=>{
       this.user = res
+      this.role = res.role
+      console.log(this.role)
       this.userbooks()
   })
   
 }
   
  userbooks(){
+  
   this.bookservice.getNumberOfBooks().subscribe((res)=>{
     this.noOfBooks = res.count
     console.log(this.noOfBooks);
