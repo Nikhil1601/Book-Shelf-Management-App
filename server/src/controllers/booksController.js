@@ -53,11 +53,16 @@ async function getAllBooks(req, res) {
    
   async function getnumberOfBooks(req, res) {
     try {
-        const count = await Book.countDocuments({ uid: req.user._id });
+        let count
+        if(req.user.role === "admin"){
+            count = await Book.countDocuments();
+        } else{
+            count = await Book.countDocuments({uid: req.user._id})
+        }
         res.status(200).json({
-            success: true,
-            count: count
-        });
+            success:true,
+            count:count
+        })
     } catch (err) {
         res.status(400).json({
             success: false,
@@ -65,6 +70,8 @@ async function getAllBooks(req, res) {
         });
     }
 }
+
+
 
 async function getBookById(req, res) {
     try {

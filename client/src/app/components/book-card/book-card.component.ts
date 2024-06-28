@@ -52,7 +52,7 @@ export class BookCardComponent {
   ngOnInit(){
     
     this.loadBooks(this.pgnumber)
-    this.totalbooks = localStorage.getItem('noOfBooks')!
+    this.totalbooks = sessionStorage.getItem('noOfBooks')!
   }
 
   ngAfterViewInit() {
