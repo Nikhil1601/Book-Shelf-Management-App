@@ -54,9 +54,12 @@ export class AuthService {
     }
     
     getName(){
-      return this.http.get<any>(`${this.baseUrl}/user/`)
+      return this.http.get<any>(`${this.baseUrl}/user/`);
     }
   
+    getNumberOfUsers(){
+      return this.http.get<any>(`${this.baseUrl}/user/nou`);
+    }
       
   }
 

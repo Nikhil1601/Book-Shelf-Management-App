@@ -15,7 +15,8 @@ import { BooksService } from '../../services/books.service';
 export class DashboardComponent {
   user:any
   noOfBooks:any
-  role:string=""
+  noOfUsers:any
+  role = sessionStorage.getItem('role')
   constructor(private authService:AuthService,private router:Router,private bookservice :BooksService){}
   ngOnInit(){
     this.userdetails()
@@ -34,10 +35,21 @@ export class DashboardComponent {
  userbooks(){
   
   this.bookservice.getNumberOfBooks().subscribe((res)=>{
-    this.noOfBooks = res.count
+    this.noOfBooks = res.count;
     console.log(this.noOfBooks);
     
     sessionStorage.setItem('noOfBooks',this.noOfBooks)
+    if(this.role === "admin"){
+      this.noofusers()
+    }
+  })
+ }
+
+ noofusers(){
+  this.authService.getNumberOfUsers().subscribe((res)=>{
+    this.noOfUsers = res.ucount;
+    console.log(this.noOfUsers);
+    sessionStorage.setItem('numOfUsers',this.noOfUsers)
   })
  }
 }

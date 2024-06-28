@@ -127,4 +127,26 @@ async function updateUserStatus(req,res){
   }
 
 
-module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus };
+
+
+async function getnumberofUsers(req,res,next){
+    let count;
+    try{
+    if(req.user.role === "admin"){
+        count = await User.countDocuments()
+    }
+    res.status(200).json({
+        success:true,
+        ucount:count
+    })
+}catch (err) {
+    res.status(400).json({
+        success: false,
+        error: err.message
+    });
+}
+}
+
+
+
+module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers };
