@@ -33,7 +33,7 @@ export class DashboardComponent {
     this.noOfBooks = res.count
     console.log(this.noOfBooks);
     
-    localStorage.setItem('noOfBooks',this.noOfBooks)
+    sessionStorage.setItem('noOfBooks',this.noOfBooks)
   })
  }
 }
