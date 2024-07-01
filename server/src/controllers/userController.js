@@ -105,14 +105,14 @@ async function getUsers(req, res) {
 
 
 async function updateUserStatus(req,res){
-    const {userId,active}=req.body;
+    const userId=req.params.id;
     try{
         if(req.user.role === "admin"){
             const user = await User.findById(userId);
             if(!user){
                 return res.status(404).json({ error: "User not found" });
             }
-            user.active = active
+            user.active = !user.active
             await user.save();
             return res.json({message:"User updated sucessfully"});
         }else{

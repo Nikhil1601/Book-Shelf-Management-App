@@ -3,6 +3,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,30 +17,47 @@ export class UsersComponent {
   user:any
   role:any
   uid:any
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService,private toastr: ToastrService){}
 
 
 
   ngOnInit(){
-    this.authService.getAllUsers().subscribe((res)=>{
+    this.loadUsers()
+  }
+
+
+
+  updateStatus(_id: any){
+    this.uid = _id;
+   this.authService.updateUserStatus(this.uid).subscribe({next:(res)=>{
+    console.log(res)
+    this.uid=""
+    this.loadUsers()
+    this.toastr.success('User updated sucessfuly','Success')
+   },
+   error:(err:any)=>{
+    this.toastr.error('Failed to update user','An error occured')
+    console.log(err);
+   }
+  })
+   
+   
+  }
+
+  loadUsers(){
+    this.authService.getAllUsers().subscribe({next:(res)=>{
       this.user = res.data
       this.role = sessionStorage.getItem('role')
       console.log(this.user)
-      // this.handleBtn()
-    })
+     
+    },
+  error:(err:any)=>{
+    this.toastr.error('Failed to load users','An error occured')
+    console.log(err);
+  }})
   }
-
-
-  // handleBtn(){
-  //   let statusbtn:any = document.getElementById('statusBtn')
-    
-   
-  // }
-
   
   
 
-  saveid(_id: any){
-    this.uid = _id;
-  }
+  
 }

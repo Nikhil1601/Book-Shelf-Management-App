@@ -1,13 +1,6 @@
 <app-navbar></app-navbar>
 <div class="cotainer">
-<!-- <div class="card" style="width: 18rem;">
-    <img src=".\assets\anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.avif" class="card-img-top" alt="Img">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div> -->
+
   @if(user.length>0){
     <div class="card-container row">
      <div class="card mx-2 my-2" *ngFor="let user of user  let i = index">
@@ -25,24 +18,16 @@
            <span class="card-title text-start">role:</span>
            <span class="card-text text-end">{{user.role}}</span>
          </div>
+         <div class="card-tile">
+           <span class="card-title text-start">Number of books:</span>
+           <span class="card-text text-end">{{user.bookCount}}</span>
+         </div>
          <div class="card-btn">
             <div class="ViewBooks"><button id="viewBooksBtn">View Books</button></div>
-            <div class="status"><button id="statusBtn" [ngClass]="{'active':user.active,'inactive':!user.active}" (click)="saveid(user._id)">{{user.active ? 'Active' : 'InActive'}}</button></div>
+            <div class="status"><button id="statusBtn" [ngClass]="{'active':user.active,'inactive':!user.active}" (click)="updateStatus(user._id)">{{user.active ? 'Active' : 'InActive'}}</button></div>
         </div>
         
-         <!-- <div class="dropdown" (mouseenter)="toggleDropdown(i)" (mouseleave)="toggleDropdown(i)">
-           <svg class="main-dropdown" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-           </svg>
-           <div class="dropdown-content" [class.show]="dropdownStates[i]">
-             <ul>
-               <li data-bs-toggle="modal" data-bs-target="#updateBookModal" (click)="saveid(book._id)">Update</li>
-               <li data-bs-toggle="modal" data-bs-target="#exampleModalCenter" (click)="saveid(book._id)"> Delete</li>
-               
-             </ul>
-             
-           </div>
-         </div> -->
+         
 
 
 
@@ -61,7 +46,7 @@
  }
  @else{
    <div class="alert alert-secondary mt-5 fs-4" role="alert">
-     You don't have any book. Please create first!
+     No user exists !
    </div>
  }
  
