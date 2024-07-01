@@ -1,1 +1,53 @@
-<p>users works!</p>
+<app-navbar></app-navbar>
+<div class="cotainer">
+
+  @if(user.length>0){
+    <div class="card-container row">
+     <div class="card mx-2 my-2" *ngFor="let user of user  let i = index">
+       <img src=".\assets\anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.avif" class="card-img-top" alt="API image">
+       <div class="card-body">
+         <div class="card-tile">
+           <span class="card-title text-start">Name:</span>
+           <span class="card-text text-end">{{user.name}}</span>
+         </div>
+         <div class="card-tile">
+           <span class="card-title text-start">Email:</span>
+           <span class="card-text text-end">{{user.email}}</span>
+         </div>
+         <div class="card-tile">
+           <span class="card-title text-start">role:</span>
+           <span class="card-text text-end">{{user.role}}</span>
+         </div>
+         <div class="card-tile">
+           <span class="card-title text-start">Number of books:</span>
+           <span class="card-text text-end">{{user.bookCount}}</span>
+         </div>
+         <div class="card-btn">
+            <div class="ViewBooks"><button id="viewBooksBtn">View Books</button></div>
+            <div class="status"><button id="statusBtn" [ngClass]="{'active':user.active,'inactive':!user.active}" (click)="updateStatus(user._id)">{{user.active ? 'Active' : 'InActive'}}</button></div>
+        </div>
+        
+         
+
+
+
+       </div>
+     </div>
+   </div>
+   <!-- <div class="pagination" id="pagination">
+     <div>
+       <div class="btn-group" id="radioBtn">
+         <a class="btn btn-primary btn-sm notActive" id="prevbtn" (click)="onPrevious()"> Previous </a>
+         <a class="btn btn-primary btn-sm active">{{pgnumber}}</a>
+         <a class="btn btn-primary btn-sm notActive" id="nextbtn" (click)="onNext()">Next </a>
+       </div>
+     </div>
+   </div> -->
+ }
+ @else{
+   <div class="alert alert-secondary mt-5 fs-4" role="alert">
+     No user exists !
+   </div>
+ }
+ 
+</div>

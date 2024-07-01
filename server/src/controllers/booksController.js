@@ -1,5 +1,6 @@
 const Book = require('../models/books');
-const mongoose  = require('mongoose')
+const mongoose  = require('mongoose');
+
 
 async function getAllBooks(req, res) {
     const pageSize = 12;

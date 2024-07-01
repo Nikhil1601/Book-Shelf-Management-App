@@ -105,14 +105,14 @@ async function getUsers(req, res) {
 
 
 async function updateUserStatus(req,res){
-    const {userId,active}=req.body;
+    const userId=req.params.id;
     try{
         if(req.user.role === "admin"){
             const user = await User.findById(userId);
             if(!user){
                 return res.status(404).json({ error: "User not found" });
             }
-            user.active = active
+            user.active = !user.active
             await user.save();
             return res.json({message:"User updated sucessfully"});
         }else{
@@ -127,4 +127,26 @@ async function updateUserStatus(req,res){
   }
 
 
-module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus };
+
+
+async function getnumberofUsers(req,res,next){
+    let count;
+    try{
+    if(req.user.role === "admin"){
+        count = await User.countDocuments()
+    }
+    res.status(200).json({
+        success:true,
+        ucount:count
+    })
+}catch (err) {
+    res.status(400).json({
+        success: false,
+        error: err.message
+    });
+}
+}
+
+
+
+module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers };
