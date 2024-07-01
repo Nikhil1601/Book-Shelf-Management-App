@@ -12,12 +12,13 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   user:any
   constructor(private authService: AuthService){}
-
+  role:any
   ngOnInit(){
 
     this.authService.getName().subscribe((res)=>{
       this.user = res
       console.log(this.user);
+      this.role = sessionStorage.getItem('role')
     })
   }
   logout(){

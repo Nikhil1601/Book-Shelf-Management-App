@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -59,6 +59,9 @@ export class AuthService {
   
     getNumberOfUsers(){
       return this.http.get<any>(`${this.baseUrl}/user/nou`);
+    }
+    getAllUsers(){
+      return this.http.get<any>(`${this.baseUrl}/user/allusers`);
     }
       
   }

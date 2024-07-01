@@ -1,0 +1,63 @@
+.card-conatiner{
+    display: flex;
+}
+
+.card{
+  flex-basis: 23.89%;
+}
+
+
+.card {
+  background-color:rgba(230, 229, 229, 0.2); 
+  border-radius: 10px;
+  color: #b9b7b7;
+}
+
+
+.pagination-controls {
+  color: rgb(255, 255, 255); 
+}
+.pagination{
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+
+
+.card-tile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-tile .card-title {
+  flex-grow: 1;
+  text-align: start;
+}
+.card-tile .card-text{
+  flex-grow: 1;
+  text-align: start;
+}
+.card-img-top{
+  width: 320px;
+  height: 400px;
+  margin-top: 20px;
+}
+.cotainer{
+    max-width: 1440px;
+    margin: 40px auto;
+    margin-top: 50px;
+}
+
+
+.card-btn #statusBtn.active {
+    background-color: green;
+    color: white;
+    
+}
+
+.card-btn #statusBtn.inactive {
+    background-color: red;
+    color: white;
+    
+}
+
