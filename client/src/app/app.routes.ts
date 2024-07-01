@@ -7,6 +7,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { BooksPageComponent } from './components/books-page/books-page.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 
@@ -27,6 +28,10 @@ export const routes: Routes = [
     },
     {
         path:'dashboard', component:DashboardComponent ,
+        canActivate:[authGuard]
+    },
+    {
+        path:'users', component:UsersComponent ,
         canActivate:[authGuard]
     },
     {

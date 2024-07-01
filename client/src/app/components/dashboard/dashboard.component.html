@@ -10,9 +10,12 @@
             <h5 class="card-title">User Information</h5>
             <p class="card-text">Name: <span id="userName">{{user.name}}</span></p>
             <p class="card-text">Email: <span id="userEmail">{{user.email}}</span></p>
+            <p class="card-text">Role: <span id="userEmail">{{user.role}}</span></p>
             <hr>
-            <h5 class="card-title">Number of Books</h5>
+            <h5 class="card-title">Details</h5>
             <p class="card-text">Total Books: <span id="totalBooks">{{noOfBooks}}</span></p>
+            @if(role == "admin"){
+            <p class="card-text">Number of Users: <span id="totalUsers">{{noOfUsers}}</span></p>}
           </div>
         </div>
       </div>

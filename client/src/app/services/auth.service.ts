@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -12,6 +12,7 @@ export class AuthService {
     private baseUrl = environment.BASE_URL1;
     private token: string = "";
     username:string = ''
+    private role:string = ''
   
     constructor(private http: HttpClient, private router: Router) { }
   
@@ -20,7 +21,9 @@ export class AuthService {
         tap(response => {
           if (response && response.token) {
             this.token = response.token;
-            localStorage.setItem('token', this.token);
+            this.role = response.role;
+            sessionStorage.setItem('role',this.role);
+            sessionStorage.setItem('token', this.token);
           }
         })
       );
@@ -33,17 +36,17 @@ export class AuthService {
   
     logout(): void {
       this.token = "";
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
       this.router.navigate(['/login']);
       console.log('bye bye');
-      localStorage.removeItem('numberofbooks')
+      sessionStorage.removeItem('numberofbooks')
       
     }
   
     getToken(): string | null {
-      console.log(localStorage.getItem('token'));
+      console.log(sessionStorage.getItem('token'));
       
-      return localStorage.getItem('token');
+      return sessionStorage.getItem('token');
     }
   
     isAuthenticated(): boolean {
@@ -51,9 +54,18 @@ export class AuthService {
     }
     
     getName(){
-      return this.http.get<any>(`${this.baseUrl}/user/`)
+      return this.http.get<any>(`${this.baseUrl}/user/`);
     }
   
+    getNumberOfUsers(){
+      return this.http.get<any>(`${this.baseUrl}/user/nou`);
+    }
+    getAllUsers(){
+      return this.http.get<any>(`${this.baseUrl}/user/allusers`);
+    }
+    updateUserStatus(uid:any){
+      return this.http.put<any>(`${this.baseUrl}/user/updateStatus/${uid}`,{})
+    }
       
   }
 
