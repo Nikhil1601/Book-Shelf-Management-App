@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -40,7 +41,7 @@ export class BookCardComponent {
   totalbooks:string =''
   userId: any | null = '';
 
-  constructor(private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder,private route: ActivatedRoute){
+  constructor(private authService:AuthService, private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder,private route: ActivatedRoute){
     this.upadteform = fb.group({
       name:['', [Validators.required]],
       author:['', [Validators.required]],
@@ -52,12 +53,14 @@ export class BookCardComponent {
 
   ngOnInit(){
     this.route.params.subscribe(params => {
-      this.userId = params['uid'];
-      console.log("uid",this.userId);
-      // console.log(this.route.params);
-      
+      const userIdFromRoute = params['uid'];
+      this.authService.changeUserId(userIdFromRoute); 
     });
-    // this.getparams()
+    this.authService.currentUserId.subscribe(userId => {
+      this.userId = userId;
+      this.loadBooks(this.pgnumber)
+    });
+   
     this.loadBooks(this.pgnumber)
     this.totalbooks = sessionStorage.getItem('noOfBooks')!
   }
@@ -69,14 +72,7 @@ export class BookCardComponent {
     }
 
 
-    getparams(){
-      this.route.params.subscribe(params => {
-        this.userId = params['uid'];
-        console.log("uid",this.userId);
-        // console.log(this.route.params);
-        
-      });
-    }
+    
 
   
 

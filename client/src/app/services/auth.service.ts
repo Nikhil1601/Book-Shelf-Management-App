@@ -69,6 +69,13 @@ export class AuthService {
     getUsernameandId(){
       return this.http.get<any>(`${this.baseUrl}/user/unameAndId`)
     }
+
+    private userIdSource = new BehaviorSubject<string | null>(null);
+  currentUserId = this.userIdSource.asObservable();
+
+  changeUserId(userId: string | null) {
+    this.userIdSource.next(userId);
+  }
       
   }
 
