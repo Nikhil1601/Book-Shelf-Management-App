@@ -147,6 +147,50 @@ async function getnumberofUsers(req,res,next){
 }
 }
 
+async function getUserIdwithName(req,res,next){
+    try{
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({
+                success: false,
+                error: 'Unauthorized Access'
+            });
+        }
+        const users = await User.find({}, 'username _id');
+
+        res.json({
+            success: true,
+            data: users
+        });
+
+    }catch(err){
+        res.status(400).json({
+            success:false,
+            error:err.message
+        })
+    }
+}
 
 
-module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers };
+
+
+
+// async function updateExistingUsers() {
+//     try {
+//         const users = await User.find({});
+        
+//         for (let user of users) {
+//             if (!user.username) {
+//                 user.username = user.email.split('@')[0];
+//                 await user.save();
+//                 console.log(`Updated username for user ${user.name}`);
+//             }
+//         }
+
+//         console.log('All users updated successfully');
+//     } catch (err) {
+//         console.error('Error updating users:', err);
+//     }
+// }
+// updateExistingUsers()
+
+module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers,getUserIdwithName };

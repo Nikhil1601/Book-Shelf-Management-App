@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -62,6 +63,8 @@ export class UsersComponent {
   
   userByBooks(_id:any){
     this.uid = _id
+    console.log(this.uid);
+    
     this.router.navigate([`/bookspage/${this.uid}`])
   }
   

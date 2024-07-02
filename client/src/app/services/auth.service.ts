@@ -66,6 +66,9 @@ export class AuthService {
     updateUserStatus(uid:any){
       return this.http.put<any>(`${this.baseUrl}/user/updateStatus/${uid}`,{})
     }
+    getUsernameandId(){
+      return this.http.get<any>(`${this.baseUrl}/user/unameAndId`)
+    }
       
   }
 

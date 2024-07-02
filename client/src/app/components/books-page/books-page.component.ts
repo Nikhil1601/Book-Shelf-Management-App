@@ -7,12 +7,15 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-books-page',
   standalone: true,
-  imports: [BookCardComponent,NavbarComponent,NgxLoadingModule,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [BookCardComponent,NavbarComponent,NgxLoadingModule,CommonModule,FormsModule,ReactiveFormsModule,DropdownComponent],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.css'
 })
@@ -20,8 +23,9 @@ export class BooksPageComponent {
   createform:FormGroup
   submitted=false
   public loading = false;
+  
   @ViewChild (BookCardComponent) private bookcard!: BookCardComponent 
-   constructor(private fb:FormBuilder,private bookservice:BooksService,private toastr: ToastrService) 
+   constructor(private fb:FormBuilder,private bookservice:BooksService,private toastr: ToastrService,private route: ActivatedRoute) 
     
    {
     this.createform = fb.group({
@@ -36,10 +40,23 @@ export class BooksPageComponent {
     
 
     ngOnInit(){
+      
     }
     get f(): { [key: string]: AbstractControl } {
+      
       return this.createform.controls;
+      
+      
     }
+
+    
+    
+    
+
+  
+
+
+
     create(){
       console.log('hello');
       
