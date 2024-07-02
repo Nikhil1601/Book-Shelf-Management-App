@@ -5,6 +5,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { identifierName } from '@angular/compiler';
 
 
 
@@ -65,6 +66,7 @@ export class UsersComponent {
     this.uid = _id
     console.log(this.uid);
     
+    this.authService.changeUserId(this.uid);
     this.router.navigate([`/bookspage/${this.uid}`])
   }
   

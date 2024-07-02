@@ -37,7 +37,8 @@ export class DropdownComponent {
 
 
   openbooks(_id:any){
-    this.router.navigate([`/bookspage/${_id}`])
+    // this.router.navigate([`/bookspage/${_id}`])
+    this.authService.changeUserId(_id);
   }
 
 
