@@ -23,7 +23,7 @@
            <span class="card-text text-end">{{user.bookCount}}</span>
          </div>
          <div class="card-btn">
-            <div class="ViewBooks"><button id="viewBooksBtn">View Books</button></div>
+            <div class="ViewBooks"><button id="viewBooksBtn" (click)="userByBooks(user._id)">View Books</button></div>
             <div class="status"><button id="statusBtn" [ngClass]="{'active':user.active,'inactive':!user.active}" (click)="updateStatus(user._id)">{{user.active ? 'Active' : 'InActive'}}</button></div>
         </div>
         

@@ -14,8 +14,11 @@ export class BooksService {
 
   constructor(private http: HttpClient) { }
 
-  getAllBooks(pageNumber: number, pageSize: number): Observable<any> {
-    const url = `${this.baseUrl}/books?page=${pageNumber}&limit=${pageSize}`;
+  getAllBooks(pageNumber: number, pageSize: number,userid:any|null=null): Observable<any> {
+    let url = `${this.baseUrl}/books?page=${pageNumber}&limit=${pageSize}`;
+    if (userid) {
+      url += `&userId=${userid}`;
+    }
     return this.http.get<any>(url);
   }
 

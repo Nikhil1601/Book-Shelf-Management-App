@@ -35,9 +35,10 @@ export const routes: Routes = [
         canActivate:[authGuard]
     },
     {
-        path:'bookspage',component:BooksPageComponent, canActivate:[authGuard],
+        path:'bookspage/?:id',component:BooksPageComponent, canActivate:[authGuard],
         children:[
             {path:'bookcards',component:BookCardComponent},
+            { path: ':uid', component: BookCardComponent }
         ]
     },
     {

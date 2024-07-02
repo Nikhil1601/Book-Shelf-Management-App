@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 @Component({
@@ -17,7 +19,8 @@ export class UsersComponent {
   user:any
   role:any
   uid:any
-  constructor(private authService:AuthService,private toastr: ToastrService){}
+  constructor(private authService:AuthService,private toastr: ToastrService,private route: ActivatedRoute,
+    private router: Router ){}
 
 
 
@@ -57,6 +60,10 @@ export class UsersComponent {
   }})
   }
   
+  userByBooks(_id:any){
+    this.uid = _id
+    this.router.navigate([`/bookspage/${this.uid}`])
+  }
   
 
   
