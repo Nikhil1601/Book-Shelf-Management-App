@@ -8,6 +8,7 @@ import {
 import {MatButtonModule} from '@angular/material/button';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -37,9 +38,9 @@ export class BookCardComponent {
   pgnumber:number = 1
   pageSize = 12
   totalbooks:string =''
+  userId: any | null = '';
 
-
-  constructor(private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder){
+  constructor(private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder,private route: ActivatedRoute){
     this.upadteform = fb.group({
       name:['', [Validators.required]],
       author:['', [Validators.required]],
@@ -51,6 +52,7 @@ export class BookCardComponent {
 
   ngOnInit(){
     
+    this.getparams()
     this.loadBooks(this.pgnumber)
     this.totalbooks = sessionStorage.getItem('noOfBooks')!
   }
@@ -59,6 +61,16 @@ export class BookCardComponent {
     const prevbtn = document.getElementById('prevbtn');
     prevbtn?.setAttribute('hidden', '');
     this.loadpagination( )
+    }
+
+
+    getparams(){
+      this.route.params.subscribe(params => {
+        this.userId = params['uid'];
+        console.log("uid",this.userId);
+        // console.log(this.route.params);
+        
+      });
     }
 loadpagination(){
   
@@ -128,7 +140,7 @@ loadpagination(){
       this.loadpagination()
     }
     })
-    this.booksService.getAllBooks(pgnumber, this.pageSize).subscribe({next:(res:any) => {
+    this.booksService.getAllBooks(pgnumber, this.pageSize,this.userId).subscribe({next:(res:any) => {
       console.log(res);
       this.books = res.data;
       this.totalItems = this.books.length;

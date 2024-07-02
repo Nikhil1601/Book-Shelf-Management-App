@@ -45,7 +45,11 @@ export class LoginComponent {
         this.errorMessage = 'User not found.';
       } else if (error.status === 401) {
         this.errorMessage = 'Invalid password.';
-      } else {
+      } 
+      else if(error.status === 403){
+        this.errorMessage = "You account is deacivated ! Please contact the admin";
+      }
+      else {
         this.errorMessage = 'An unexpected error occurred.';
       }});
   }

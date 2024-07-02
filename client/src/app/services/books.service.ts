@@ -14,11 +14,14 @@ export class BooksService {
 
   constructor(private http: HttpClient) { }
 
-  getAllBooks(pageNumber: number, pageSize: number,userid:any|null=null): Observable<any> {
-    let url = `${this.baseUrl}/books?page=${pageNumber}&limit=${pageSize}`;
+  getAllBooks(pageNumber: number, pageSize: number,userid?:any): Observable<any> {
+    let url = `${this.baseUrl}/books`
     if (userid) {
-      url += `&userId=${userid}`;
+      url += `/${userid}`;
     }
+    url+=`?page=${pageNumber}&limit=${pageSize}`
+    console.log(url);
+    
     return this.http.get<any>(url);
   }
 

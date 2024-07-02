@@ -6,6 +6,7 @@ import { BooksService } from '../../services/books.service';
 import { NgxLoadingModule } from 'ngx-loading';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -20,6 +21,7 @@ export class BooksPageComponent {
   createform:FormGroup
   submitted=false
   public loading = false;
+  
   @ViewChild (BookCardComponent) private bookcard!: BookCardComponent 
    constructor(private fb:FormBuilder,private bookservice:BooksService,private toastr: ToastrService) 
     
@@ -36,10 +38,18 @@ export class BooksPageComponent {
     
 
     ngOnInit(){
+      
     }
     get f(): { [key: string]: AbstractControl } {
+      
       return this.createform.controls;
+      
+      
     }
+
+    
+      
+    
     create(){
       console.log('hello');
       
