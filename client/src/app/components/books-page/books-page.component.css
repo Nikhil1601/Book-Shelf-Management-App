@@ -8,3 +8,8 @@
     margin-right: 13rem;
     margin-top: 3rem;
 }
+.mydropdown{
+    justify-content: center;
+    display: flex;
+    margin-top: 50px;
+}

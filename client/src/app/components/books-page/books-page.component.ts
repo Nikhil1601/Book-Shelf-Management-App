@@ -6,14 +6,15 @@ import { BooksService } from '../../services/books.service';
 import { NgxLoadingModule } from 'ngx-loading';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 
 
 @Component({
   selector: 'app-books-page',
   standalone: true,
-  imports: [BookCardComponent,NavbarComponent,NgxLoadingModule,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [BookCardComponent,NavbarComponent,NgxLoadingModule,CommonModule,FormsModule,ReactiveFormsModule,DropdownComponent],
   templateUrl: './books-page.component.html',
   styleUrl: './books-page.component.css'
 })

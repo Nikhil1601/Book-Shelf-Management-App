@@ -147,6 +147,33 @@ async function getnumberofUsers(req,res,next){
 }
 }
 
+async function getUserIdwithName(req,res,next){
+    try{
 
+    }catch(err){
+        res.status(400).json({
+            success:false,
+            error:err.message
+        })
+    }
+}
+// async function updateExistingUsers() {
+//     try {
+//         const users = await User.find({});
+        
+//         for (let user of users) {
+//             if (!user.username) {
+//                 user.username = user.email.split('@')[0];
+//                 await user.save();
+//                 console.log(`Updated username for user ${user.name}`);
+//             }
+//         }
+
+//         console.log('All users updated successfully');
+//     } catch (err) {
+//         console.error('Error updating users:', err);
+//     }
+// }
+// updateExistingUsers()
 
 module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers };
