@@ -51,8 +51,13 @@ export class BookCardComponent {
   }
 
   ngOnInit(){
-    
-    this.getparams()
+    this.route.params.subscribe(params => {
+      this.userId = params['uid'];
+      console.log("uid",this.userId);
+      // console.log(this.route.params);
+      
+    });
+    // this.getparams()
     this.loadBooks(this.pgnumber)
     this.totalbooks = sessionStorage.getItem('noOfBooks')!
   }
@@ -72,6 +77,10 @@ export class BookCardComponent {
         
       });
     }
+
+  
+
+
 loadpagination(){
   
     const noBooks = Number(this.numberofbooks)
@@ -141,6 +150,7 @@ loadpagination(){
     }
     })
     this.booksService.getAllBooks(pgnumber, this.pageSize,this.userId).subscribe({next:(res:any) => {
+      
       console.log(res);
       this.books = res.data;
       this.totalItems = this.books.length;

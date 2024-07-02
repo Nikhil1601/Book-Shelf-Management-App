@@ -149,6 +149,18 @@ async function getnumberofUsers(req,res,next){
 
 async function getUserIdwithName(req,res,next){
     try{
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({
+                success: false,
+                error: 'Unauthorized Access'
+            });
+        }
+        const users = await User.find({}, 'username _id');
+
+        res.json({
+            success: true,
+            data: users
+        });
 
     }catch(err){
         res.status(400).json({
@@ -157,6 +169,11 @@ async function getUserIdwithName(req,res,next){
         })
     }
 }
+
+
+
+
+
 // async function updateExistingUsers() {
 //     try {
 //         const users = await User.find({});
@@ -176,4 +193,4 @@ async function getUserIdwithName(req,res,next){
 // }
 // updateExistingUsers()
 
-module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers };
+module.exports = { handleSignup, handleLogin, getUserById,getUsers, updateUserStatus, getnumberofUsers,getUserIdwithName };
