@@ -62,10 +62,10 @@ export class UsersComponent {
   }})
   }
   
-  userByBooks(_id:any){
+  userByBooks(_id:any,bookcount:any){
     this.uid = _id
     console.log(this.uid);
-    
+    localStorage.setItem("bookcount",bookcount)
     this.authService.changeUserId(this.uid);
     this.router.navigate([`/bookspage/${this.uid}`])
   }

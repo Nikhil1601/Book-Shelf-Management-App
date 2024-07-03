@@ -76,7 +76,14 @@ async function getAllBooks(req, res) {
 
 async function getBookById(req, res) {
     try {
-        const book = await Book.findOne({ _id: req.params.id, uid: req.user._id });
+        const userId = req.user._id;
+        const isAdmin = req.user.role === 'admin';
+        const query = { _id: req.params.id };
+        if (!isAdmin) {
+            query.uid = userId;
+        }
+        const book = await Book.findOne(query);
+
         if (!book) {
             return res.status(404).json({
                 success: false,
@@ -94,6 +101,9 @@ async function getBookById(req, res) {
         });
     }
 }
+
+module.exports = { getBookById };
+
 
 async function createBook(req, res) {
     try {

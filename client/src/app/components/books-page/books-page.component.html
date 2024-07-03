@@ -1,10 +1,12 @@
 <app-navbar></app-navbar>
+@if(role == 'admin'){
 <div class="mydropdown">
-<app-dropdown></app-dropdown></div>
+<app-dropdown></app-dropdown></div>}
+@if(role === 'user'){
 <div class="d-flex justify-content-end">
   <button class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#addBookModal">Create +</button>
 </div>
-
+}
 
 
 

@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class DropdownComponent {
   user:any
   constructor(private authService:AuthService,private toastr:ToastrService,private router: Router){}
-
+  usernameSelected:string = "Choose username"
 
   ngOnInit(){
     this.loadUsernames()
@@ -36,8 +36,9 @@ export class DropdownComponent {
   }
 
 
-  openbooks(_id:any){
-    // this.router.navigate([`/bookspage/${_id}`])
+  openbooks(_id:any,username:string){
+    this.usernameSelected = username
+    this.router.navigate([`/bookspage/${_id}`])
     this.authService.changeUserId(_id);
   }
 

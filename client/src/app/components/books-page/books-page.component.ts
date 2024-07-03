@@ -23,6 +23,7 @@ export class BooksPageComponent {
   createform:FormGroup
   submitted=false
   public loading = false;
+  role:any
   
   @ViewChild (BookCardComponent) private bookcard!: BookCardComponent 
    constructor(private fb:FormBuilder,private bookservice:BooksService,private toastr: ToastrService,private route: ActivatedRoute) 
@@ -40,7 +41,7 @@ export class BooksPageComponent {
     
 
     ngOnInit(){
-      
+      this.role = sessionStorage.getItem('role')
     }
     get f(): { [key: string]: AbstractControl } {
       

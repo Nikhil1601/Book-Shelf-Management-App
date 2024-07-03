@@ -5,7 +5,7 @@ const {verifyToken} = require("../service/auth");
 
 router.get('/nob', verifyToken, getnumberOfBooks);
 router.get('/:userId?', verifyToken, getAllBooks);
-router.get('/:id', verifyToken, getBookById);
+router.get('/bookById/:id', verifyToken, getBookById);
 router.post('/', verifyToken, createBook);
 router.put('/:id', verifyToken, updateBook);
 router.delete('/:id', verifyToken, deleteBook);

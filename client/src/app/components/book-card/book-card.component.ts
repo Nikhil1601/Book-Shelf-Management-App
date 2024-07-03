@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 
 
 
+
 @Component({
   selector: 'app-book-card',
   standalone: true,
@@ -39,8 +40,8 @@ export class BookCardComponent {
   pgnumber:number = 1
   pageSize = 12
   totalbooks:string =''
-  userId: any | null = '';
-
+  userId: any | null = null;
+  bookcount:any
   constructor(private authService:AuthService, private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder,private route: ActivatedRoute){
     this.upadteform = fb.group({
       name:['', [Validators.required]],
@@ -72,14 +73,12 @@ export class BookCardComponent {
     }
 
 
-    
-
-  
-
-
 loadpagination(){
-  
-    const noBooks = Number(this.numberofbooks)
+    if(this.userId !== null){
+      noBooks = Number(localStorage.getItem("bookcount"))
+    }
+    else{
+    var noBooks = Number(this.numberofbooks)}
     console.log("nosnd",noBooks);
     const pagination = document.getElementById('pagination')
       if(noBooks<=12){
@@ -141,10 +140,11 @@ loadpagination(){
   loadBooks(pgnumber:number){
     this.booksService.getNumberOfBooks().subscribe({next:(res:any)=>{
       this.numberofbooks = res.count
-      
       this.loadpagination()
     }
     })
+    
+
     this.booksService.getAllBooks(pgnumber, this.pageSize,this.userId).subscribe({next:(res:any) => {
       
       console.log(res);
@@ -175,11 +175,12 @@ loadpagination(){
 
   saveid(id:string){
     this.bookid = id
-    console.log(this.bookid)
+    console.log("upadte",this.bookid)
     this.booksService.getBookById(this.bookid).subscribe({next:(res:any) => {
       const book = res.data;
-
-      this.upadteform.setValue({
+      console.log("updateBook",book);
+      
+      this.upadteform.patchValue({
         name: book.name,
         author:book.author,
         image:book.image,
@@ -205,7 +206,7 @@ loadpagination(){
       pages: bookval.pages,
       price: bookval.price
     }
-    console.log(book);
+    console.log("update",book);
     this.booksService.updateBook(book,this.bookid).subscribe({next:(res:any)=>{
       console.log(res)
       this.toastr.success('Successfully updated book','Success')
