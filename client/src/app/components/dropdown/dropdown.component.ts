@@ -37,7 +37,7 @@ export class DropdownComponent {
 
 
   openbooks(_id:any,username:string,numberofBooks:any){
-    localStorage.setItem("bookcount",numberofBooks)
+    sessionStorage.setItem("bookcount",numberofBooks)
     this.usernameSelected = username
     this.router.navigate([`/bookspage/${_id}`])
     this.authService.changeUserId(_id);

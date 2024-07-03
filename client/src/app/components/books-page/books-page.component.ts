@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,7 +26,7 @@ export class BooksPageComponent {
   role:any
   
   @ViewChild (BookCardComponent) private bookcard!: BookCardComponent 
-   constructor(private fb:FormBuilder,private bookservice:BooksService,private toastr: ToastrService,private route: ActivatedRoute) 
+   constructor(private fb:FormBuilder,private bookservice:BooksService,private toastr: ToastrService,private route: ActivatedRoute,private cdr: ChangeDetectorRef) 
     
    {
     this.createform = fb.group({
@@ -42,6 +42,7 @@ export class BooksPageComponent {
 
     ngOnInit(){
       this.role = sessionStorage.getItem('role')
+      // this.cdr.detectChanges();
     }
     get f(): { [key: string]: AbstractControl } {
       
