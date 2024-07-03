@@ -4,7 +4,7 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-dark">
         @for(user of user; track user.id){
-      <li><a class="dropdown-item" (click)="openbooks(user._id,user.username)">{{user.username}}</a></li>
+      <li><a class="dropdown-item" (click)="openbooks(user._id,user.username,user.numberOfBooks)">{{user.username}}</a></li>
         }
     </ul>
   </div>

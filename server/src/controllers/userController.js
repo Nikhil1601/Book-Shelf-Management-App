@@ -4,7 +4,7 @@ const { setUser } = require("../service/auth");
 const bcrypt = require('bcrypt')
 
 async function handleSignup(req, res, next) {
-    const { name, email, password,role } = req.body;
+    const { name, email, password } = req.body;
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -15,7 +15,6 @@ async function handleSignup(req, res, next) {
             name,
             email,
             password: hashedPassword,
-            role,
         });
         return res.json("Successfully signed up");
     } catch (error) {
@@ -147,28 +146,46 @@ async function getnumberofUsers(req,res,next){
 }
 }
 
-async function getUserIdwithName(req,res,next){
-    try{
+async function getUserIdwithName(req, res, next) {
+    try {
         if (req.user.role !== 'admin') {
             return res.status(403).json({
                 success: false,
                 error: 'Unauthorized Access'
             });
         }
-        const users = await User.find({}, 'username _id');
+
+        const users = await User.aggregate([
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: '_id',
+                    foreignField: 'uid',
+                    as: 'books'
+                }
+            },
+            {
+                $project: {
+                    username: 1,
+                    _id: 1,
+                    numberOfBooks: { $size: '$books' }
+                }
+            }
+        ]);
 
         res.json({
             success: true,
             data: users
         });
 
-    }catch(err){
+    } catch (err) {
         res.status(400).json({
-            success:false,
-            error:err.message
-        })
+            success: false,
+            error: err.message
+        });
     }
 }
+
 
 
 
