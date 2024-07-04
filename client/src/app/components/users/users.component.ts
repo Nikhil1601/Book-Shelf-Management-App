@@ -5,7 +5,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { identifierName } from '@angular/compiler';
+
+import { FooterComponent } from '../footer/footer.component';
 
 
 
@@ -13,7 +14,7 @@ import { identifierName } from '@angular/compiler';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [NavbarComponent,CommonModule,NgxPaginationModule],
+  imports: [NavbarComponent,CommonModule,NgxPaginationModule,FooterComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
