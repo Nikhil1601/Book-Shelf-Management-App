@@ -26,7 +26,7 @@ export class BookCardComponent {
   dropdownStates: boolean[] = [];
   bookidmap: { [key: number]: string } = {}// for future search option
   totalItems: number = 0;
-  numberofbooks:string ='';
+  numberofbooks:  any ='';
   p:number = 1
   bookid:string=''
   bookName: string = '';
@@ -74,10 +74,14 @@ export class BookCardComponent {
 
 
 loadpagination(){
-    if(this.userId !== null || undefined){
+    if(this.userId !== undefined){
+      console.log("aagye hain hum jo yaha !");
+      
       noBooks = Number(sessionStorage.getItem("bookcount"))
     }
     else{
+      console.log("tere ye khata janiye !");
+    this.numberofbooks = sessionStorage.getItem("noOfBooks")
     var noBooks = Number(this.numberofbooks)}
     console.log("nosnd",noBooks);
     const pagination = document.getElementById('pagination')

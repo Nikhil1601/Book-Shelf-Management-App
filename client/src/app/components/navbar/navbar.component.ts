@@ -26,6 +26,7 @@ export class NavbarComponent {
   if (modalBackdrop) {
     modalBackdrop.remove();
   }
+    window.location.reload()
     this.authService.logout()
   }
 }
