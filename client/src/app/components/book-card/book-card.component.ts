@@ -61,7 +61,7 @@ export class BookCardComponent {
       this.userId = userId;
       this.loadBooks(this.pgnumber)
     });
-   
+   console.log("dikat hain bro",this.userId)
     this.loadBooks(this.pgnumber)
     this.totalbooks = sessionStorage.getItem('noOfBooks')!
   }
@@ -74,8 +74,8 @@ export class BookCardComponent {
 
 
 loadpagination(){
-    if(this.userId !== null){
-      noBooks = Number(localStorage.getItem("bookcount"))
+    if(this.userId !== null || undefined){
+      noBooks = Number(sessionStorage.getItem("bookcount"))
     }
     else{
     var noBooks = Number(this.numberofbooks)}

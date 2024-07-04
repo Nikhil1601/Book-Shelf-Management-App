@@ -10,13 +10,14 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { FooterComponent } from '../footer/footer.component';
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,NgxPaginationModule,DashboardComponent,NavbarComponent,RouterModule,FormsModule,ReactiveFormsModule,NgxLoadingModule],
+  imports: [CommonModule,NgxPaginationModule,DashboardComponent,NavbarComponent,RouterModule,FormsModule,ReactiveFormsModule,NgxLoadingModule,FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
