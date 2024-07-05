@@ -52,13 +52,6 @@ export class BooksPageComponent {
       
     }
 
-    
-    
-    
-
-  
-
-
 
     create(){
       console.log('hello');

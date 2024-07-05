@@ -42,7 +42,7 @@ async function handleLogin(req, res) {
         const token = setUser(user);
         role = user.role
         console.log(token);
-        res.json({ token ,role}); // Sending token in JSON format
+        res.json({ token ,role});
     } catch (error) {
         console.error("Error during login:", error);
         return res.status(500).json({ error: "Error during login" });
@@ -87,7 +87,15 @@ async function getUsers(req, res) {
                         password: 0,
                         books: 0
                     }
-                }
+                    
+                },
+                { $match: 
+                    { role: 
+                        { $ne: 'admin' 
+
+                        } 
+                    } 
+                },
             ]);
             res.status(200).json({
                 success: true,
