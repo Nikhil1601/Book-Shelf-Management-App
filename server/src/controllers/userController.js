@@ -196,7 +196,9 @@ async function getUserIdwithName(req, res, next) {
 
 
 
-
+async function deleteUser(){
+    
+}
 
 
 // async function updateExistingUsers() {
