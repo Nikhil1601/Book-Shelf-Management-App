@@ -43,4 +43,4 @@ Thumbs.db
 
 
 #env files
-/environments
+/src/environments/
