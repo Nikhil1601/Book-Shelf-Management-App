@@ -176,7 +176,8 @@ async function getUserIdwithName(req, res, next) {
                 $project: {
                     username: 1,
                     _id: 1,
-                    numberOfBooks: { $size: '$books' }
+                    numberOfBooks: { $size: '$books' },
+                    name:1
                 }
             }
         ]);
