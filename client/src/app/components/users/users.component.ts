@@ -8,9 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FooterComponent } from '../footer/footer.component';
 
-
-
-
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -30,8 +27,6 @@ export class UsersComponent {
   ngOnInit(){
     this.loadUsers()
   }
-
-
 
   updateStatus(_id: any){
     this.uid = _id;
@@ -70,7 +65,5 @@ export class UsersComponent {
     this.authService.changeUserId(this.uid);
     this.router.navigate([`/bookspage/${this.uid}`])
   }
-  
-
   
 }

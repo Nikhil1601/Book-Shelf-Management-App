@@ -41,7 +41,7 @@ export class BookCardComponent {
   pageSize = 12
   totalbooks:string =''
   userId: any | null = null;
-  bookcount:any
+  bookcount:any;
   constructor(private authService:AuthService, private booksService: BooksService,public dialog: MatDialog,private toastr: ToastrService,private fb: FormBuilder,private route: ActivatedRoute){
     this.upadteform = fb.group({
       name:['', [Validators.required]],
@@ -173,9 +173,6 @@ loadpagination(){
   })
   
   }
- 
-  
-
 
   saveid(id:string){
     this.bookid = id
