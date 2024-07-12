@@ -3,4 +3,9 @@
 }
 .dropdown-item{
     width: 295px;
+   
+}
+.custom-dropdown-menu{
+    max-height: 700px;
+    overflow-y: auto;
 }

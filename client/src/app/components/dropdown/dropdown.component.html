@@ -2,7 +2,7 @@
     <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       {{usernameSelected}}
     </button>
-    <ul class="dropdown-menu dropdown-menu-dark">
+    <ul class="dropdown-menu dropdown-menu-dark custom-dropdown-menu">
         @for(user of user; track user.id){
           <li><div><a class="dropdown-item" (click)="openbooks(user._id,user.username,user.numberOfBooks)"><div>{{user.username}}</div>
             <span >{{user.name}}</span></a></div><hr/></li>
